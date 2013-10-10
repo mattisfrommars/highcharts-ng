@@ -3,8 +3,16 @@
 angular.module('highcharts-ng', [])
   .directive('highchart', function () {
 
-
-    function prependMethod(obj, method, func) {
+    return {
+      restrict: 'EAC',
+      replace: true,
+      template: '<div></div>',
+      scope: {
+        config: '='
+      },
+      link: function (scope, element, attrs) {
+        
+        function prependMethod(obj, method, func) {
       var original = obj[method];
       obj[method] = function () {
         var args = Array.prototype.slice.call(arguments);
@@ -153,18 +161,6 @@ angular.module('highcharts-ng', [])
       chart.redraw();
       return chart;
     }
-
-
-
-
-    return {
-      restrict: 'EAC',
-      replace: true,
-      template: '<div></div>',
-      scope: {
-        config: '='
-      },
-      link: function (scope, element, attrs) {
 
         var chart = initialiseChart(scope, element, scope.config);
 
